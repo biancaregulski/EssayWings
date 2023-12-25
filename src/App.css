@@ -1,38 +1,158 @@
-.App {
+/* base layout */
+
+.app-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: 'Courier Prime', monospace;
+  margin: 1em 0;
+  color: rgb(0, 0, 0);
+  width: 100%;
+  gap: 2em;
+}
+
+/* sidebar */
+
+.sidebar {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  transition: 1s;
+}
+
+.permanent-sidebar {
+  height: 100%;
+  width: 50px;
+  border-right: 1px lightgray solid;
+  transition: 1s;
+}
+
+/* writing tree */
+
+.writing-tree-header {
+  padding: 0 1em;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.writing-tree-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  min-width: 200px;
+  border-right: 1px lightgray solid;
+  /* transition: all .5s ease-in-out; */
 }
 
-.App-link {
-  color: #61dafb;
+.writing-tree-container::after {
+	display: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.tree-section {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
 }
+
+.section-select {
+  margin-left: auto;
+  min-width: 20px;
+  min-height: 20px;
+  background-color: #f5f5f5;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.open-slide {
+  /* transform: translate(0, 0, 0); */
+  /* width: 100%;
+  transition: all .5s ease-in-out; */
+  visibility: visible;
+    -webkit-transition: -webkit-transform 0.5s;
+    transition: transform 0.5s;
+    -webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+.close-slide {
+  /* transition: translate(-100%, 0, 0); */
+  display: none;
+  visibility: hidden;
+  transition: transform 0.5s;
+}
+
+/* text editor */
+
+.text-editor {
+  width: 100%;
+  height: 100%;
+}
+
+.text-editor input {
+  width: 100%;
+  height: 100%;
+}
+
+  .tree-title {
+      border-bottom: 1px lightgray solid;
+      width: 100%;
+      font-size: 24px;
+  }
+
+  .toDo {
+      color: rgb(238, 198, 55);
+  }
+
+  .inProgress { 
+      color: rgb(206, 131, 9);
+  }
+
+  .done {
+      color: rgb(193, 94, 66);
+  }
+
+  /* overwriting mui classes */
+  .MuiTreeItem-label {
+      padding: 1em;
+  }
+
+  .MuiTreeItem-content {
+    margin-left: 0;
+  }
+
+
+.writing-details {
+  display: flex;
+  flex-direction: column;
+}
+
+/* writing board */
+
+.writing-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+  min-width: 650px;
+  max-width: 650px;
+}
+
+.board-column {
+  background-color: #f5f5f5;
+  padding: 0.5em;
+}
+
+.board-column-title {
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 0.5em;
+}
+
+.board-card {
+  padding: 1em;
+  margin: 1em 0.5em ;
+  background-color: #e8e8e8;
+}
+
+
