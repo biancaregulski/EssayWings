@@ -1,5 +1,6 @@
 import { useState } from "react";
-import WritingTree from "./writing-tree";
+// import WritingTree from "./writing-tree";
+import Tree from "./tree";
 import Hamburger from 'hamburger-react';
 
 
@@ -15,9 +16,10 @@ const Sidebar = () => {
                     <Hamburger toggled={showSidebarContents} toggle={setShowSidebarContents} />
                 </div>
             </div>
-            <div className={showSidebarContents ? "open-slide" : "close-slide"}>
+            <div className={!showSidebarContents ? "open-slide" : "close-slide"}>
                 {/* {showSidebarContents ? <WritingTree /> : null} */}
-                <WritingTree />
+                {/* <WritingTree /> */}
+                <Tree />
                 {/* </div> */}
                 {/* {showSidebarContents ? <WritingTree /> : null} */}
             </div>

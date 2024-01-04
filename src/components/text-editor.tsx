@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { HeadingExtension, BoldExtension, ItalicExtension, CalloutExtension } from 'remirror/extensions';
-import { EditorComponent, Remirror, useRemirror } from '@remirror/react';
+import { EditorComponent, Remirror, useHelpers, useKeymap, useRemirror } from '@remirror/react';
 import 'remirror/styles/all.css';
+import TextEditorMenu from "./text-editor-menu";
+import { SampExtension } from "../samp-extension";
 
+
+const textEditorHooks = [
+    () => {
+        const { getJSON } = useHelpers();
+        const handleSaveShortcut = useCallback(
+            ({ state }) => {
+                console.log(`Save to backend: ${JSON.stringify(getJSON(state))}`);
+
+                // prevents additional key handlers from being run
+                return true;
+            },
+            [getJSON],
+        );
+
+        // mod means platform agnostic modifier
+        // i.e. ctrl on window, cmd on mac
+        useKeymap('Mod-s', handleSaveShortcut);
+    }
+];
 
 const TextEditor = () => {
-    const Menu = () => <button onClick={() => alert('clicked!')}>menu</button>;
 
     const remirrorJsonFromStorage = {
         type: 'doc',
@@ -26,6 +46,7 @@ const TextEditor = () => {
             new HeadingExtension({}),
             new BoldExtension({}),
             new ItalicExtension({}),
+            new SampExtension(),
             new CalloutExtension({ defaultType: 'warn' }), // Override defaultType: 'info'
         ],
 
@@ -34,9 +55,12 @@ const TextEditor = () => {
 
     return (
         <div className="text-editor remirror-theme">
-            <Remirror manager={manager} initialContent={state}>
+            <Remirror
+                manager={manager}
+                initialContent={state}
+                hooks={textEditorHooks}>
+                <TextEditorMenu />
                 <EditorComponent />
-                <Menu />
             </Remirror>
         </div>
     );

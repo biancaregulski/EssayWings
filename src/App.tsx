@@ -1,11 +1,8 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import WritingBoard from './components/writing-board';
-import WritingDetails from './components/writing-details';
-import WritingTree from './components/writing-tree';
 import TextEditor from './components/text-editor';
 import Sidebar from './components/sidebar';
+import Editor from './components/editor';
 
 function App() {
   return (
@@ -14,7 +11,8 @@ function App() {
         <Sidebar />
       </header>
       {/* <WritingTree /> */}
-      <TextEditor />
+      {/* <TextEditor /> */}
+      <Editor />
       <WritingBoard />
       {/* <WritingDetails /> */}
     </div>

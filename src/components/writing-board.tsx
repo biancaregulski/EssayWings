@@ -1,14 +1,13 @@
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import { columnsFromBackend } from "../WritingBoardData";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import BoardCard, { BoardColumns, BoardItem } from './writing-board-card';
 
 const WritingBoard = () => {
-    var nums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     const [columns, setColumns] = useState<BoardColumns>(columnsFromBackend);
-    
 
-    const onDragEnd = (result: DropResult, columns: BoardColumns, setColumns: React.Dispatch<React.SetStateAction<BoardColumns>> ) => {
+
+    const onDragEnd = (result: DropResult, columns: BoardColumns, setColumns: React.Dispatch<React.SetStateAction<BoardColumns>>) => {
         if (!result.destination) return;
         const { source, destination } = result;
         if (source.droppableId !== destination.droppableId) {
@@ -46,34 +45,34 @@ const WritingBoard = () => {
 
     return (
         <div className="writing-board">
-        <DragDropContext
-            onDragEnd={result => onDragEnd(result, columns, setColumns)}
-        >
-            <div>
-                <div className="writing-board">
-                    {Object.entries(columns).map(([columnId, column], index) => {
-                        return (
-                            <Droppable key={columnId} droppableId={columnId}>
-                                {provided => (
-                                    <div className="board-column"
-                                        ref={provided.innerRef}
-                                        {...provided.droppableProps}
-                                    >
-                                        <div className='board-column-title'>
-                                            {column.title}
+            <DragDropContext
+                onDragEnd={result => onDragEnd(result, columns, setColumns)}
+            >
+                <div>
+                    <div className="writing-board">
+                        {Object.entries(columns).map(([columnId, column], index) => {
+                            return (
+                                <Droppable key={columnId} droppableId={columnId}>
+                                    {provided => (
+                                        <div className="board-column"
+                                            ref={provided.innerRef}
+                                            {...provided.droppableProps}
+                                        >
+                                            <div className='board-column-title'>
+                                                {column.title}
+                                            </div>
+                                            {column.items.map((item: BoardItem, index: number) => (
+                                                <BoardCard key={item.id} item={item} index={index} />
+                                            ))}
+                                            {provided.placeholder}
                                         </div>
-                                        {column.items.map((item: BoardItem, index: number) => (
-                                            <BoardCard key={item.id} item={item} index={index} />
-                                        ))}
-                                        {provided.placeholder}
-                                    </div>
-                                )}
-                            </Droppable>
-                        );
-                    })}
+                                    )}
+                                </Droppable>
+                            );
+                        })}
+                    </div>
                 </div>
-            </div>
-        </DragDropContext>
+            </DragDropContext>
         </div>
     );
 };
